@@ -13,6 +13,8 @@ Given an **old** and a **new** schema plus the GraphQL operations used by each c
 
 The tool doesn't block schema changes by default. Its job is to show the impact of a change and help backend and client developers talk about it. The full specification is in [`CLAUDE.md`](./CLAUDE.md).
 
+> **Want to see it in action?** Follow the step-by-step demo in [`run.md`](./run.md).
+
 ## Architecture
 
 ```text
