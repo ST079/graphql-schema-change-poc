@@ -1,6 +1,5 @@
 type Campaign {
     id: ID!
-    title: String!
     video: CampaignVideo
 }
 
