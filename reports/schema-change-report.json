@@ -1,9 +1,9 @@
 {
   "reportVersion": 1,
-  "serviceName": "Cerberus",
-  "generatedAt": "2026-10-05T17:04:52.211509+00:00",
-  "oldSchema": "demo/old-schema.graphql",
-  "newSchema": "demo/new-schema.graphql",
+  "serviceName": "GraphQL API",
+  "generatedAt": "2026-10-05T17:56:48.152926+00:00",
+  "oldSchema": "./demo/old-schema.graphql",
+  "newSchema": "./demo/new-schema.graphql",
   "summary": {
     "totalChanges": 3,
     "breakingChanges": 1,
@@ -103,7 +103,7 @@
         {
           "name": "GetCampaign",
           "operationType": "Query",
-          "filePath": "demo/android/GetCampaign.graphql",
+          "filePath": "./demo/android/GetCampaign.graphql",
           "usages": [
             "campaign.videoUrl"
           ]
@@ -111,7 +111,7 @@
         {
           "name": "GetCampaignDetails",
           "operationType": "Query",
-          "filePath": "demo/android/GetCampaignDetails.graphql",
+          "filePath": "./demo/android/GetCampaignDetails.graphql",
           "usages": [
             "campaign.videoUrl"
           ]
@@ -137,7 +137,7 @@
         {
           "name": "CampaignDetails",
           "operationType": "Query",
-          "filePath": "demo/frontend/CampaignDetails.graphql",
+          "filePath": "./demo/frontend/CampaignDetails.graphql",
           "usages": [
             "campaign.videoUrl"
           ]
@@ -155,12 +155,12 @@
     {
       "clientName": "Frontend",
       "operationName": "CampaignCard",
-      "filePath": "demo/frontend/CampaignCard.graphql"
+      "filePath": "./demo/frontend/CampaignCard.graphql"
     },
     {
       "clientName": "Frontend",
       "operationName": "GetUser",
-      "filePath": "demo/frontend/GetUser.graphql"
+      "filePath": "./demo/frontend/GetUser.graphql"
     }
   ]
 }

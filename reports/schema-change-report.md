@@ -1,10 +1,10 @@
 # 🚨 GraphQL Schema Change Report
 
-**Service:** Cerberus
+**Service:** GraphQL API
 
-**Generated:** 2026-10-05 17:04 UTC
+**Generated:** 2026-10-05 17:56 UTC
 
-**Compared:** `demo/old-schema.graphql` → `demo/new-schema.graphql`
+**Compared:** `./demo/old-schema.graphql` → `./demo/new-schema.graphql`
 
 ## Summary
 
