@@ -10,3 +10,8 @@ schema-intelligence.json
 
 # Personal Claude Code settings
 .claude/settings.local.json
+
+# /brag launch-video output: keep only the final video
+brag-output/*
+!brag-output/brag.mp4
+brag-output-*/
