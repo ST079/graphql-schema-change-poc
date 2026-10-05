@@ -1,0 +1,20 @@
+type Campaign {
+    id: ID!
+    title: String!
+    video: CampaignVideo
+}
+
+type CampaignVideo {
+    id: ID!
+    url: String!
+}
+
+type User {
+    id: ID!
+    name: String!
+}
+
+type Query {
+    campaign: Campaign
+    user: User
+}

@@ -1,0 +1,12 @@
+bin/
+obj/
+TestResults/
+*.user
+.vs/
+.idea/
+
+# Local configuration may contain webhook URLs or tokens; never commit it.
+schema-intelligence.json
+
+# Personal Claude Code settings
+.claude/settings.local.json

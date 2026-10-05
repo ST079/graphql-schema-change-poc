@@ -1,0 +1,9 @@
+{
+  "SchemaIntelligence": {
+    "Webhook": {
+      "Enabled": false,
+      "Url": "",
+      "TimeoutSeconds": 10
+    }
+  }
+}

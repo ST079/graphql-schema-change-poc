@@ -1,0 +1,6 @@
+query CampaignCard {
+    campaign {
+        id
+        title
+    }
+}

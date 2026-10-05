@@ -1,0 +1,166 @@
+{
+  "reportVersion": 1,
+  "serviceName": "Cerberus",
+  "generatedAt": "2026-10-05T17:04:52.211509+00:00",
+  "oldSchema": "demo/old-schema.graphql",
+  "newSchema": "demo/new-schema.graphql",
+  "summary": {
+    "totalChanges": 3,
+    "breakingChanges": 1,
+    "warningChanges": 0,
+    "infoChanges": 2,
+    "affectedClients": 2,
+    "affectedOperations": 3,
+    "clients": [
+      {
+        "clientName": "Android",
+        "affectedOperations": 2,
+        "highestSeverity": "Breaking"
+      },
+      {
+        "clientName": "Frontend",
+        "affectedOperations": 1,
+        "highestSeverity": "Breaking"
+      }
+    ]
+  },
+  "changes": [
+    {
+      "changeType": "FieldRemoved",
+      "severity": "Breaking",
+      "path": "Campaign.videoUrl",
+      "schemaType": "Campaign",
+      "fieldName": "videoUrl",
+      "argumentName": null,
+      "oldType": "String",
+      "newType": null,
+      "oldValue": null,
+      "newValue": null,
+      "description": "Field 'Campaign.videoUrl' of type 'String' was removed.",
+      "reason": "An existing field was removed and clients using it may fail.",
+      "recommendedAction": "Update affected client operations to stop requesting Campaign.videoUrl.",
+      "hasClientImpact": true,
+      "possibleMigrations": [
+        {
+          "from": "Campaign.videoUrl",
+          "to": "Campaign.video",
+          "confidence": "Possible",
+          "developerVerificationRequired": true
+        }
+      ]
+    },
+    {
+      "changeType": "FieldAdded",
+      "severity": "Info",
+      "path": "Campaign.video",
+      "schemaType": "Campaign",
+      "fieldName": "video",
+      "argumentName": null,
+      "oldType": null,
+      "newType": "CampaignVideo",
+      "oldValue": null,
+      "newValue": null,
+      "description": "Field 'Campaign.video' was added with type 'CampaignVideo'.",
+      "reason": "A new field was added. Existing clients can continue using the previous schema.",
+      "recommendedAction": "No action required for existing clients unless they want to use the new field.",
+      "hasClientImpact": false,
+      "possibleMigrations": []
+    },
+    {
+      "changeType": "TypeAdded",
+      "severity": "Info",
+      "path": "CampaignVideo",
+      "schemaType": "CampaignVideo",
+      "fieldName": null,
+      "argumentName": null,
+      "oldType": null,
+      "newType": null,
+      "oldValue": null,
+      "newValue": "Object",
+      "description": "Type 'CampaignVideo' (Object) was added.",
+      "reason": "A new GraphQL type was added. Existing clients are not required to use it.",
+      "recommendedAction": "No action required for existing clients unless they need the new GraphQL type.",
+      "hasClientImpact": false,
+      "possibleMigrations": []
+    }
+  ],
+  "clientImpacts": [
+    {
+      "clientName": "Android",
+      "severity": "Breaking",
+      "changeType": "FieldRemoved",
+      "path": "Campaign.videoUrl",
+      "schemaType": "Campaign",
+      "fieldName": "videoUrl",
+      "argumentName": null,
+      "oldType": "String",
+      "newType": null,
+      "affectedOperations": [
+        "GetCampaign",
+        "GetCampaignDetails"
+      ],
+      "operations": [
+        {
+          "name": "GetCampaign",
+          "operationType": "Query",
+          "filePath": "demo/android/GetCampaign.graphql",
+          "usages": [
+            "campaign.videoUrl"
+          ]
+        },
+        {
+          "name": "GetCampaignDetails",
+          "operationType": "Query",
+          "filePath": "demo/android/GetCampaignDetails.graphql",
+          "usages": [
+            "campaign.videoUrl"
+          ]
+        }
+      ],
+      "reason": "Field 'Campaign.videoUrl' of type 'String' was removed. 2 Android operation(s) use it.",
+      "recommendedAction": "Update affected client operations to stop requesting Campaign.videoUrl."
+    },
+    {
+      "clientName": "Frontend",
+      "severity": "Breaking",
+      "changeType": "FieldRemoved",
+      "path": "Campaign.videoUrl",
+      "schemaType": "Campaign",
+      "fieldName": "videoUrl",
+      "argumentName": null,
+      "oldType": "String",
+      "newType": null,
+      "affectedOperations": [
+        "CampaignDetails"
+      ],
+      "operations": [
+        {
+          "name": "CampaignDetails",
+          "operationType": "Query",
+          "filePath": "demo/frontend/CampaignDetails.graphql",
+          "usages": [
+            "campaign.videoUrl"
+          ]
+        }
+      ],
+      "reason": "Field 'Campaign.videoUrl' of type 'String' was removed. 1 Frontend operation(s) use it.",
+      "recommendedAction": "Update affected client operations to stop requesting Campaign.videoUrl."
+    }
+  ],
+  "scannedClients": [
+    "Android",
+    "Frontend"
+  ],
+  "unaffectedOperations": [
+    {
+      "clientName": "Frontend",
+      "operationName": "CampaignCard",
+      "filePath": "demo/frontend/CampaignCard.graphql"
+    },
+    {
+      "clientName": "Frontend",
+      "operationName": "GetUser",
+      "filePath": "demo/frontend/GetUser.graphql"
+    }
+  ]
+}
