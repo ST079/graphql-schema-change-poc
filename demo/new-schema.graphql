@@ -1,11 +1,12 @@
 type Campaign {
     id: ID!
+    title: String!
     video: CampaignVideo
 }
 
 type CampaignVideo {
     id: ID!
-    url: String!
+    url: String
 }
 
 type User {
