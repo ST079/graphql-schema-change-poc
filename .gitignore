@@ -15,3 +15,6 @@ schema-intelligence.json
 brag-output/*
 !brag-output/brag.mp4
 brag-output-*/
+
+# Generated on every run; see reports/example-report.* for a committed example.
+reports/schema-change-report.*

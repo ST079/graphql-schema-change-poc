@@ -11,7 +11,7 @@ This guide walks through the GraphQL Schema Change Intelligence POC step by step
 - [.NET SDK 10.0](https://dotnet.microsoft.com/download) or later. Check with `dotnet --version`.
 - Python 3, only for the optional webhook demo in step 7.
 
-All commands below are run from the repository root.
+All commands below are run from the repository root. The expected outputs assume the **original** demo files. If you've edited `demo/`, restore it first (see the end of step 8).
 
 ```bash
 git clone https://github.com/ST079/graphql-schema-change-poc.git
@@ -259,7 +259,11 @@ WARNING  DeprecationAdded  Campaign.title
 Breaking changes: 0
 ```
 
-This time `CampaignCard` *is* listed, because it selects `title`. Feel free to edit the files under `demo/` to try other changes, such as removing a type, removing an enum value, or adding a required argument. To restore the originals afterwards, run `git checkout demo/`.
+This time `CampaignCard` *is* listed, because it selects `title`. Feel free to edit the files under `demo/` to try other changes, such as removing a type, removing an enum value, or adding a required argument. The tests use their own copy, so they won't break. To restore the original demo files:
+
+```bash
+cp -R src/Veel.GraphQL.SchemaIntelligence.Tests/Fixtures/* demo/
+```
 
 ---
 

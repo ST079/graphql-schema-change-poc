@@ -42,8 +42,9 @@ concurrency:
 env:
   DOTNET_NOLOGO: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
-  # The schema of record, compared between the base revision and this revision.
-  # In this POC the demo file stands in for the backend schema; point it at the exported service schema later.
+  # The schema of record, compared between the base revision and this revision: edit it and push to get a report.
+  # Tests use their own fixed copies (src/Veel.GraphQL.SchemaIntelligence.Tests/Fixtures), so demo/ is free to change.
+  # Point these at the exported service schema and the real client operations later.
   SCHEMA_FILE: demo/new-schema.graphql
   ANDROID_OPERATIONS: demo/android
   FRONTEND_OPERATIONS: demo/frontend
@@ -99,10 +100,11 @@ jobs:
       # Same command developers run locally. Exit code is non-zero only when analysis itself fails.
       # No webhook settings are provided here, so no notification is sent from CI.
       - name: Analyze schema changes
+        id: analyze
         env:
           BASE_SCHEMA: ${{ steps.base-schema.outputs.path }}
         run: |
-          # Remove committed example reports so only freshly generated output can be published.
+          # Defensive: never publish a report left over from anything but this step.
           rm -f "$REPORT_DIR/schema-change-report.md" "$REPORT_DIR/schema-change-report.json"
           dotnet run --project src/Veel.GraphQL.SchemaIntelligence --configuration Release --no-build -- \
             analyze \
@@ -113,17 +115,18 @@ jobs:
             --service "$SERVICE_NAME" \
             --output "$REPORT_DIR"
 
+      # Only a report produced by this run's analysis is published; otherwise nothing is shown.
       - name: Publish report to job summary
-        if: ${{ !cancelled() && hashFiles('reports/schema-change-report.md') != '' }}
+        if: ${{ !cancelled() && steps.analyze.outcome == 'success' }}
         run: cat "$REPORT_DIR/schema-change-report.md" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload report artifact
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.analyze.outcome == 'success' }}
         uses: actions/upload-artifact@v7
         with:
           name: graphql-schema-change-report
           path: |
             reports/schema-change-report.md
             reports/schema-change-report.json
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 14

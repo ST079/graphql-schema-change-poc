@@ -9,7 +9,7 @@ public class SchemaLoaderTests
     [Fact]
     public void LoadFromFile_DemoOldSchema_ProducesCampaignWithVideoUrl()
     {
-        var schema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot("demo/old-schema.graphql"));
+        var schema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/old-schema.graphql"));
 
         Assert.Equal(["Campaign", "Query", "User"], schema.Types.Select(t => t.Name));
         Assert.Equal("Query", schema.QueryTypeName);
@@ -25,7 +25,7 @@ public class SchemaLoaderTests
     [Fact]
     public void LoadFromFile_DemoNewSchema_ProducesCampaignVideoType()
     {
-        var schema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot("demo/new-schema.graphql"));
+        var schema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/new-schema.graphql"));
 
         Assert.Equal(["Campaign", "CampaignVideo", "Query", "User"], schema.Types.Select(t => t.Name));
         Assert.Null(schema.FindType("Campaign")!.FindField("videoUrl"));

@@ -69,10 +69,10 @@ public sealed class CliTests : IDisposable
     private string[] DemoArgs(params string[] extra) =>
     [
         "analyze",
-        "--old-schema", "demo/old-schema.graphql",
-        "--new-schema", "demo/new-schema.graphql",
-        "--android", "demo/android",
-        "--frontend", "demo/frontend",
+        "--old-schema", $"{TestPaths.Fixtures}/old-schema.graphql",
+        "--new-schema", $"{TestPaths.Fixtures}/new-schema.graphql",
+        "--android", $"{TestPaths.Fixtures}/android",
+        "--frontend", $"{TestPaths.Fixtures}/frontend",
         "--service", "Cerberus",
         "--output", OutputDirectory,
         .. extra,
@@ -116,8 +116,8 @@ public sealed class CliTests : IDisposable
     public async Task IdenticalSchemas_ReportNoChanges()
     {
         var result = await RunCli(
-            "analyze", "--old-schema", "demo/old-schema.graphql", "--new-schema", "demo/old-schema.graphql",
-            "--android", "demo/android", "--output", OutputDirectory);
+            "analyze", "--old-schema", $"{TestPaths.Fixtures}/old-schema.graphql", "--new-schema", $"{TestPaths.Fixtures}/old-schema.graphql",
+            "--android", $"{TestPaths.Fixtures}/android", "--output", OutputDirectory);
 
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("No schema changes detected.", result.StandardOutput);
@@ -177,7 +177,7 @@ public sealed class CliTests : IDisposable
     {
         var result = await RunCli(
             new Dictionary<string, string> { ["GITHUB_ACTIONS"] = "true" },
-            "analyze", "--old-schema", "demo/old-schema.graphql", "--new-schema", "demo/old-schema.graphql", "--output", OutputDirectory);
+            "analyze", "--old-schema", $"{TestPaths.Fixtures}/old-schema.graphql", "--new-schema", $"{TestPaths.Fixtures}/old-schema.graphql", "--output", OutputDirectory);
 
         Assert.Equal(0, result.ExitCode);
         Assert.DoesNotContain("::warning", result.StandardOutput);
@@ -195,17 +195,17 @@ public sealed class CliTests : IDisposable
 
     [Theory]
     [InlineData("missing old schema", "ERROR: Schema file does not exist: missing.graphql",
-        "analyze", "--old-schema", "missing.graphql", "--new-schema", "demo/new-schema.graphql")]
+        "analyze", "--old-schema", "missing.graphql", "--new-schema", $"{TestPaths.Fixtures}/new-schema.graphql")]
     [InlineData("missing client directory", "ERROR: Android GraphQL directory does not exist: demo/ios",
-        "analyze", "--old-schema", "demo/old-schema.graphql", "--new-schema", "demo/new-schema.graphql", "--android", "demo/ios")]
+        "analyze", "--old-schema", $"{TestPaths.Fixtures}/old-schema.graphql", "--new-schema", $"{TestPaths.Fixtures}/new-schema.graphql", "--android", "demo/ios")]
     [InlineData("unknown option", "ERROR: Unknown or incomplete option '--bogus'.",
-        "analyze", "--old-schema", "demo/old-schema.graphql", "--bogus", "x")]
+        "analyze", "--old-schema", $"{TestPaths.Fixtures}/old-schema.graphql", "--bogus", "x")]
     [InlineData("missing required option", "ERROR: Both --old-schema and --new-schema are required.",
-        "analyze", "--old-schema", "demo/old-schema.graphql")]
+        "analyze", "--old-schema", $"{TestPaths.Fixtures}/old-schema.graphql")]
     [InlineData("unknown format", "ERROR: Unknown format 'xml'. Use markdown, json or all.",
-        "analyze", "--old-schema", "demo/old-schema.graphql", "--new-schema", "demo/new-schema.graphql", "--format", "xml")]
+        "analyze", "--old-schema", $"{TestPaths.Fixtures}/old-schema.graphql", "--new-schema", $"{TestPaths.Fixtures}/new-schema.graphql", "--format", "xml")]
     [InlineData("missing config file", "ERROR: Configuration file does not exist: missing.json",
-        "analyze", "--old-schema", "demo/old-schema.graphql", "--new-schema", "demo/new-schema.graphql", "--config", "missing.json")]
+        "analyze", "--old-schema", $"{TestPaths.Fixtures}/old-schema.graphql", "--new-schema", $"{TestPaths.Fixtures}/new-schema.graphql", "--config", "missing.json")]
     [InlineData("no command", "Usage: analyze")]
     public async Task InvalidInput_FailsWithClearError(string scenario, string expectedError, params string[] args)
     {
@@ -222,7 +222,7 @@ public sealed class CliTests : IDisposable
         var schema = Path.Combine(_temp.FullName, "broken.graphql");
         await File.WriteAllTextAsync(schema, "type Query {\n  campaign: \n}");
 
-        var result = await RunCli("analyze", "--old-schema", schema, "--new-schema", "demo/new-schema.graphql");
+        var result = await RunCli("analyze", "--old-schema", schema, "--new-schema", $"{TestPaths.Fixtures}/new-schema.graphql");
 
         Assert.Equal(1, result.ExitCode);
         Assert.Contains("ERROR: Schema is invalid GraphQL", result.StandardError);
@@ -237,7 +237,7 @@ public sealed class CliTests : IDisposable
         await File.WriteAllTextAsync(Path.Combine(clientDirectory.FullName, "Broken.graphql"), "query Broken {\n  campaign {\n    id(\n  }\n}");
 
         var result = await RunCli(
-            "analyze", "--old-schema", "demo/old-schema.graphql", "--new-schema", "demo/new-schema.graphql",
+            "analyze", "--old-schema", $"{TestPaths.Fixtures}/old-schema.graphql", "--new-schema", $"{TestPaths.Fixtures}/new-schema.graphql",
             "--android", clientDirectory.FullName, "--output", OutputDirectory);
 
         Assert.Equal(1, result.ExitCode);
@@ -284,7 +284,7 @@ public sealed class CliTests : IDisposable
     {
         // The endpoint is unreachable, so the run would fail if the CLI tried to send.
         var result = await RunCli(
-            "analyze", "--old-schema", "demo/old-schema.graphql", "--new-schema", "demo/old-schema.graphql",
+            "analyze", "--old-schema", $"{TestPaths.Fixtures}/old-schema.graphql", "--new-schema", $"{TestPaths.Fixtures}/old-schema.graphql",
             "--output", OutputDirectory, "--webhook", $"http://127.0.0.1:{ClosedPort()}/hook");
 
         Assert.Equal(0, result.ExitCode);

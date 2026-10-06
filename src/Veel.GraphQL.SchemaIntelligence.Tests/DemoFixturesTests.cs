@@ -3,13 +3,13 @@ namespace Veel.GraphQL.SchemaIntelligence.Tests;
 public class DemoFixturesTests
 {
     [Theory]
-    [InlineData("demo/old-schema.graphql")]
-    [InlineData("demo/new-schema.graphql")]
-    [InlineData("demo/android/GetCampaign.graphql")]
-    [InlineData("demo/android/GetCampaignDetails.graphql")]
-    [InlineData("demo/frontend/CampaignDetails.graphql")]
-    [InlineData("demo/frontend/CampaignCard.graphql")]
-    [InlineData("demo/frontend/GetUser.graphql")]
+    [InlineData($"{TestPaths.Fixtures}/old-schema.graphql")]
+    [InlineData($"{TestPaths.Fixtures}/new-schema.graphql")]
+    [InlineData($"{TestPaths.Fixtures}/android/GetCampaign.graphql")]
+    [InlineData($"{TestPaths.Fixtures}/android/GetCampaignDetails.graphql")]
+    [InlineData($"{TestPaths.Fixtures}/frontend/CampaignDetails.graphql")]
+    [InlineData($"{TestPaths.Fixtures}/frontend/CampaignCard.graphql")]
+    [InlineData($"{TestPaths.Fixtures}/frontend/GetUser.graphql")]
     public void DemoFile_Exists_And_IsNotEmpty(string relativePath)
     {
         var path = TestPaths.FromRepositoryRoot(relativePath);

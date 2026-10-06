@@ -221,8 +221,8 @@ public class ChangeClassifierTests
     [Fact]
     public void DemoSchemas_LoadDiffClassify_ProducesExpectedSeverities()
     {
-        var oldSchema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot("demo/old-schema.graphql"));
-        var newSchema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot("demo/new-schema.graphql"));
+        var oldSchema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/old-schema.graphql"));
+        var newSchema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/new-schema.graphql"));
 
         var classified = _classifier.Classify(new SchemaDiffer().Compare(oldSchema, newSchema));
 

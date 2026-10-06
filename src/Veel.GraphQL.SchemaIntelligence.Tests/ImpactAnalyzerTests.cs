@@ -76,7 +76,7 @@ public class ImpactAnalyzerTests
     public void ClientWithoutMatchingOperation_GetsNoImpact()
     {
         // Real operations, so the only references are the ones the operation analyzer actually finds.
-        var schema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot("demo/old-schema.graphql"));
+        var schema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/old-schema.graphql"));
         var operationAnalyzer = new OperationAnalyzer();
         var operations = operationAnalyzer.ParseOperations("Android", "query GetUser { user { id name } }")
             .Concat(operationAnalyzer.ParseOperations("Frontend", "query CampaignDetails { campaign { id videoUrl } }"));

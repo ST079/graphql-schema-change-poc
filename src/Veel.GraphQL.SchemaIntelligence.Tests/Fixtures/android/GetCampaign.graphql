@@ -1,0 +1,7 @@
+query GetCampaign {
+    campaign {
+        id
+        title
+        videoUrl
+    }
+}

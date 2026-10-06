@@ -54,7 +54,7 @@ public class EndToEndTests
             ["Android/GetCampaign", "Android/GetCampaignDetails", "Frontend/CampaignCard", "Frontend/CampaignDetails", "Frontend/GetUser"],
             run.Operations.Select(o => $"{o.ClientName}/{o.Name}"));
         Assert.All(run.Operations, o =>
-            Assert.Contains($"demo/{o.ClientName.ToLowerInvariant()}/", o.FilePath.Replace('\\', '/')));
+            Assert.Contains($"Fixtures/{o.ClientName.ToLowerInvariant()}/", o.FilePath.Replace('\\', '/')));
     }
 
     [Fact]
@@ -116,7 +116,7 @@ public class EndToEndTests
     [Fact]
     public void NoChangeScenario_ProducesEmptyButValidOutputs()
     {
-        var run = TestReports.RunDemo(newSchemaFile: "demo/old-schema.graphql");
+        var run = TestReports.RunDemo(newSchemaFile: $"{TestPaths.Fixtures}/old-schema.graphql");
         var report = run.Report;
 
         Assert.Empty(run.Classified);
@@ -139,7 +139,7 @@ public class EndToEndTests
     public async Task NoChangeScenario_WebhookSenderStillPostsTheSameDeterministicPayload()
     {
         // The sender itself does not filter; the CLI decides to skip empty reports (see CliTests).
-        var report = TestReports.RunDemo(newSchemaFile: "demo/old-schema.graphql").Report;
+        var report = TestReports.RunDemo(newSchemaFile: $"{TestPaths.Fixtures}/old-schema.graphql").Report;
         var handler = new FakeHttpMessageHandler(_ => Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)));
         var sender = new WebhookNotificationSender(
             new HttpClient(handler), new WebhookOptions { Enabled = true, Url = "https://hooks.example.test/x" });

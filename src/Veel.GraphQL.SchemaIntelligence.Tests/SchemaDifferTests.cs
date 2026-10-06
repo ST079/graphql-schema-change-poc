@@ -141,8 +141,8 @@ public class SchemaDifferTests
     [Fact]
     public void Compare_RepeatedRuns_ProduceIdenticalResults()
     {
-        var oldSchema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot("demo/old-schema.graphql"));
-        var newSchema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot("demo/new-schema.graphql"));
+        var oldSchema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/old-schema.graphql"));
+        var newSchema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/new-schema.graphql"));
         var differ = new SchemaDiffer();
 
         var first = differ.Compare(oldSchema, newSchema);
@@ -157,8 +157,8 @@ public class SchemaDifferTests
     public void Compare_DemoSchemas_ReportsRemovalAndAdditionNotRename()
     {
         var changes = new SchemaDiffer().Compare(
-            SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot("demo/old-schema.graphql")),
-            SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot("demo/new-schema.graphql")));
+            SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/old-schema.graphql")),
+            SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/new-schema.graphql")));
 
         Assert.Equal(
             [
@@ -321,8 +321,8 @@ public class SchemaDifferTests
     [Fact]
     public void Compare_SwappedInputs_InvertsAdditionsAndRemovals()
     {
-        var oldSchema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot("demo/old-schema.graphql"));
-        var newSchema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot("demo/new-schema.graphql"));
+        var oldSchema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/old-schema.graphql"));
+        var newSchema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/new-schema.graphql"));
 
         var changes = new SchemaDiffer().Compare(newSchema, oldSchema);
 

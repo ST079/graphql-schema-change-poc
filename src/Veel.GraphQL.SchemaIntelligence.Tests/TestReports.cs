@@ -48,14 +48,14 @@ internal static class TestReports
         ("Android", "query GetCampaign { campaign { id videoUrl } } query GetCampaignDetails { campaign { title videoUrl } }"),
         ("Frontend", "query CampaignDetails { campaign { videoUrl } } query CampaignCard { campaign { id title } }"));
 
-    /// <summary>The demo scenario's report, built from the files in <c>demo/</c>.</summary>
+    /// <summary>The demo scenario's report, built from the fixed copies in <see cref="TestPaths.Fixtures"/>.</summary>
     public static ChangeReport FromDemoFiles() => RunDemo().Report;
 
     /// <summary>
-    /// Runs the full pipeline exactly as the CLI does, on the demo clients and the given schema files
+    /// Runs the full pipeline exactly as the CLI does, on the fixture clients and the given schema files
     /// (relative to the repository root), exposing every intermediate result.
     /// </summary>
-    public static PipelineRun RunDemo(string oldSchemaFile = "demo/old-schema.graphql", string newSchemaFile = "demo/new-schema.graphql")
+    public static PipelineRun RunDemo(string oldSchemaFile = $"{TestPaths.Fixtures}/old-schema.graphql", string newSchemaFile = $"{TestPaths.Fixtures}/new-schema.graphql")
     {
         var oldSchema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot(oldSchemaFile));
         var newSchema = SchemaLoader.LoadFromFile(TestPaths.FromRepositoryRoot(newSchemaFile));
@@ -63,8 +63,8 @@ internal static class TestReports
 
         ClientDefinition[] clients =
         [
-            new("Android", TestPaths.FromRepositoryRoot("demo/android")),
-            new("Frontend", TestPaths.FromRepositoryRoot("demo/frontend")),
+            new("Android", TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/android")),
+            new("Frontend", TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/frontend")),
         ];
         var operationAnalyzer = new OperationAnalyzer();
         var operations = clients.SelectMany(operationAnalyzer.LoadOperations).ToList();

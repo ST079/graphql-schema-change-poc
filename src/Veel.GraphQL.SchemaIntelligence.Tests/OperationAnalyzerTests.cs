@@ -48,7 +48,7 @@ public class OperationAnalyzerTests
     public void LoadOperations_DemoAndroid_DiscoversAllGraphQLFiles()
     {
         var operations = _analyzer.LoadOperations(
-            new ClientDefinition("Android", TestPaths.FromRepositoryRoot("demo/android")));
+            new ClientDefinition("Android", TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/android")));
 
         Assert.Equal(["GetCampaign", "GetCampaignDetails"], operations.Select(o => o.Name));
         Assert.All(operations, o => Assert.Equal("Android", o.ClientName));
@@ -322,8 +322,8 @@ public class OperationAnalyzerTests
     [Fact]
     public void FindAffected_AndroidAndFrontend_AreReportedWithTheirClientNames()
     {
-        var operations = _analyzer.LoadOperations(new ClientDefinition("Android", TestPaths.FromRepositoryRoot("demo/android")))
-            .Concat(_analyzer.LoadOperations(new ClientDefinition("Frontend", TestPaths.FromRepositoryRoot("demo/frontend"))));
+        var operations = _analyzer.LoadOperations(new ClientDefinition("Android", TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/android")))
+            .Concat(_analyzer.LoadOperations(new ClientDefinition("Frontend", TestPaths.FromRepositoryRoot($"{TestPaths.Fixtures}/frontend"))));
 
         var affected = _analyzer.FindAffectedOperations(VideoUrlRemoved, operations, Schema);
 
